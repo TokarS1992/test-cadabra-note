@@ -1,12 +1,31 @@
 @import "../../styles/variables";
 @import "../../styles/mixins";
 
+$clt_settings: #616161;
+
 .header {
   padding-left: 70px;
+  padding-right: 40px;
   @include w_h(100%, map_get($header, height));
   box-shadow: 0 4px 8px 0 rgba(115,107,107,0.2);
   background-color: $bg_header;
   text-transform: uppercase;
   @include font('Roboto', bold);
   color: map_get($header, clr);
+  &__user-settings {
+    &__button {
+      color: $clt_settings;
+      @include font(null, bold, 14px, 16px);
+      > * {
+        display: inline-block;
+      }
+      &__icon {
+        margin: 0 24px;
+        @include w_h(12px, 12px);
+        background-image: url('../../../assets/ArrowUp.svg');
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+    }
+  }
 }

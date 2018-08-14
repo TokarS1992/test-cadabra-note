@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { ErrorsTypes } from '../utils/abstructError';
 import { AbstructHttp } from '../utils/abstractHttp';
 import Cookies from 'js-cookie';
+// import { User } from '../interfaces/user';
 
 const keyHeaders = ['access-token', 'client', 'expiry', 'uid'];
 
@@ -32,6 +33,7 @@ export class AuthService extends ErrorsTypes {
                         Cookies.set(keyHeaders[k], headerVal, { expires: 1});
                     }
                 }
+                localStorage.setItem('currentUser', JSON.stringify(res.body));
                 return res.body;
             }));
     }

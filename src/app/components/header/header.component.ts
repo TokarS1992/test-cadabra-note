@@ -7,8 +7,17 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
     @Input() titleView = 'Note app';
+    toggleMenu = false;
     constructor() { }
 
+    get currentUser() {
+        return JSON.parse(localStorage.getItem('currentUser'));
+    }
+
     ngOnInit() {
+    }
+
+    handleClickMenu() {
+        this.toggleMenu = !this.toggleMenu;
     }
 }

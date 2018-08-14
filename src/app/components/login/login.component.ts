@@ -36,8 +36,9 @@ export class LoginComponent extends AbstructForm implements OnInit {
     login() {
         if (this.checkControlMarkAsTouched(this.formLogin)) {
             this.pending = true;
-            this.authService.login(this.getValuesForm(this.formLogin)).subscribe(res => {
+            this.authService.login(this.getValuesForm(this.formLogin)).subscribe((res: User) => {
                 this.pending = false;
+                console.log(res);
                 this.router.navigate(['/notes']);
             }, err => {
                 this.pending = false;
