@@ -1,0 +1,53 @@
+@import "./mixins";
+
+$bg_header: #F9F9F9;
+$header: (clr: #6C757C, height: 64px);
+$clr_error: #FF7275;
+$bg_clr_btn: #403F3F;
+$h_without_header: calc(100vh - #{map_get($header, height)});
+$bg_clr_spinner: #a5a0a00f;
+
+%form-styles {
+  padding: 60px 80px 70px 80px;
+  @include w_h(415px, auto);
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
+  position: relative;
+}
+
+%error-block-styles {
+  position: absolute;
+  right: 0;
+  bottom: -20px;
+  color: $clr_error;
+  @include font(null, 300, 14px, 14px);
+  &.length {
+    bottom: -35px;
+  }
+  &.pattern {
+    bottom: -50px;
+  }
+}
+
+%button-form-styles {
+  @include font('Roboto', bold, 16px, 19px);
+  color: #403F3F;
+  transition: all ease-in 0.3s, color 0.05s ease-in 0.3s;
+  padding: 15px 20px;
+  border-radius: 3px;
+  text-transform: capitalize;
+  &:hover {
+    color: #fff;
+    text-decoration: none;
+    background-color: $bg_clr_btn;
+    box-shadow: 0 2px 12px 0 rgba(71,61,61,0.1);
+  }
+}
+
+%spinner-form-styles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  @include w_h();
+  background-color: $bg_clr_spinner;
+  z-index: 9999;
+}

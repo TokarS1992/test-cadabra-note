@@ -1,0 +1,55 @@
+<div class="container">
+    <div class="login d-flex justify-content-center align-items-center">
+        <div class="login__form">
+            <div class="login__form__pending d-flex justify-content-center align-items-center" *ngIf="pending">
+                <mat-spinner [diameter]="50"></mat-spinner>
+            </div>
+
+            <form
+                    [formGroup]="formLogin"
+                    novalidate
+                    #locControls="localVariables"
+                    [localVariables]="{
+                        email: formLogin.controls['email'],
+                        password: formLogin.controls['password']
+                    }"
+                    (ngSubmit)="login()"
+            >
+                <mat-form-field class="d-block">
+                    <input matInput placeholder="Email" [formControl]="locControls.email">
+
+                    <div class="login__form__error-block text-right"
+                         [ngClass]="{
+                            req: locControls.email.hasError('required'),
+                            email: locControls.email.hasError('email')
+                        }"
+                         *ngIf="locControls.email.errors && locControls.email.touched">
+                        <div *ngIf="locControls.email.hasError('required')">This field required</div>
+                        <div *ngIf="locControls.email.hasError('email')">Incorrect email address</div>
+                    </div>
+                </mat-form-field>
+
+                <mat-form-field class="d-block">
+                    <input matInput placeholder="Password" [formControl]="locControls.password" type="password">
+
+                    <div class="login__form__error-block text-right" [ngClass]="{
+                        req: locControls.password.hasError('required'),
+                        length: locControls.password.hasError('minlength') || locControls.password.hasError('maxlength'),
+                        pattern: locControls.password_confirm.hasError('pattern')
+                    }"
+                         *ngIf="locControls.password.errors && locControls.password.touched">
+                        <div *ngIf="locControls.password.hasError('required')">This field required</div>
+                        <div *ngIf="locControls.password.hasError('pattern')">Invalid enter symbols. Correct: any letters or/and numbers without special character</div>
+                        <div *ngIf="locControls.password.hasError('minlength') && !locControls.password.hasError('pattern')">Invalid enter min length password. Correct length: 8</div>
+                        <div *ngIf="locControls.password.hasError('maxlength') && !locControls.password.hasError('pattern')">Invalid enter max length password. Correct length: 16</div>
+                    </div>
+                </mat-form-field>
+
+                <div class="login__form__buttons d-flex justify-content-between">
+                    <button class="btn btn-link" type="submit">Sign in</button>
+                    <a class="btn btn-link" [routerLink]="'/registration'">Sign up</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

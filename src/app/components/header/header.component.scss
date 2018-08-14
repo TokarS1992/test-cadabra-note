@@ -1,0 +1,12 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+.header {
+  padding-left: 70px;
+  @include w_h(100%, map_get($header, height));
+  box-shadow: 0 4px 8px 0 rgba(115,107,107,0.2);
+  background-color: $bg_header;
+  text-transform: uppercase;
+  @include font('Roboto', bold);
+  color: map_get($header, clr);
+}

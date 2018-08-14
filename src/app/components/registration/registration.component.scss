@@ -1,0 +1,27 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+$clr_success_created: #28a745;
+
+.registration {
+  @include w_h(100%, $h_without_header);
+  &__form {
+    @extend %form-styles;
+    &__error-block {
+      @extend %error-block-styles;
+    }
+    &__buttons {
+      margin-top: 45px;
+      button, a {
+        @extend %button-form-styles;
+      }
+    }
+    &__pending {
+      @extend %spinner-form-styles;
+      @include choose_clr_mat_spinner($bg_clr_btn);
+    }
+    &__redirect-block {
+      color: $clr_success_created;
+    }
+  }
+}

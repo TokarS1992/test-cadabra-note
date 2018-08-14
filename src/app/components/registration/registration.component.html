@@ -1,0 +1,91 @@
+<div class="container">
+    <div class="registration d-flex justify-content-center align-items-center">
+        <div class="registration__form">
+            <div class="registration__form__pending d-flex justify-content-center align-items-center" *ngIf="pending">
+                <mat-spinner [diameter]="50"></mat-spinner>
+            </div>
+
+            <form
+                [formGroup]="formReg"
+                novalidate
+                #locControls="localVariables"
+                [localVariables]="{
+                    name: formReg.controls['name'],
+                    email: formReg.controls['email'],
+                    password: formReg.controls['password'],
+                    password_confirm: formReg.controls['password_confirmation']
+                }"
+                (ngSubmit)="registrate()"
+            >
+                <mat-form-field class="d-block">
+                    <input matInput placeholder="Name" [formControl]="locControls.name">
+
+                    <div class="registration__form__error-block text-right"
+                         [ngClass]="{
+                            req: locControls.name.hasError('required'),
+                            length: locControls.name.hasError('minlength') || locControls.name.hasError('maxlength')
+                        }"
+                         *ngIf="locControls.name.errors && locControls.name.touched">
+                        <div *ngIf="locControls.name.hasError('required')">This field required</div>
+                        <div *ngIf="locControls.name.hasError('minlength')">Invalid enter min length password. Correct length: 2</div>
+                        <div *ngIf="locControls.name.hasError('maxlength')">Invalid enter max length password. Correct length: 20</div>
+                    </div>
+                </mat-form-field>
+
+                <mat-form-field class="d-block">
+                    <input matInput placeholder="Email" [formControl]="locControls.email">
+
+                    <div class="registration__form__error-block text-right"
+                         [ngClass]="{
+                            req: locControls.email.hasError('required'),
+                            email: locControls.email.hasError('email')
+                        }"
+                         *ngIf="locControls.email.errors && locControls.email.touched">
+                        <div *ngIf="locControls.email.hasError('required')">This field required</div>
+                        <div *ngIf="locControls.email.hasError('email')">Incorrect email address</div>
+                    </div>
+                </mat-form-field>
+
+                <mat-form-field class="d-block">
+                    <input matInput placeholder="Password" [formControl]="locControls.password" type="password">
+
+                    <div class="registration__form__error-block text-right" [ngClass]="{
+                        req: locControls.password.hasError('required'),
+                        length: locControls.password.hasError('minlength') || locControls.password.hasError('maxlength')
+                    }"
+                         *ngIf="locControls.password.errors && locControls.password.touched">
+                        <div *ngIf="locControls.password.hasError('required')">This field required</div>
+                        <div *ngIf="locControls.password.hasError('pattern')">Invalid enter symbols. Correct: any letters or/and numbers without special character</div>
+                        <div *ngIf="locControls.password.hasError('minlength')">Invalid enter min length password. Correct length: 8</div>
+                        <div *ngIf="locControls.password.hasError('maxlength')">Invalid enter max length password. Correct length: 16</div>
+                    </div>
+                </mat-form-field>
+
+                <mat-form-field class="d-block">
+                    <input matInput placeholder="Password confirm" [formControl]="locControls.password_confirm" type="password">
+
+                    <div class="registration__form__error-block text-right" [ngClass]="{
+                        req: locControls.password_confirm.hasError('required'),
+                        length: locControls.password_confirm.hasError('minlength') || locControls.password_confirm.hasError('maxlength'),
+                        pattern: locControls.password_confirm.hasError('pattern')
+                    }"
+                         *ngIf="locControls.password_confirm.errors && locControls.password_confirm.touched">
+                        <div *ngIf="locControls.password_confirm.hasError('required')">This field required</div>
+                        <div *ngIf="locControls.password_confirm.hasError('pattern')">Invalid enter symbols. Correct: any letters or/and numbers without special character</div>
+                        <div *ngIf="locControls.password_confirm.hasError('minlength') && !locControls.password_confirm.hasError('pattern')">Invalid enter min length password. Correct length: 8</div>
+                        <div *ngIf="locControls.password_confirm.hasError('maxlength') && !locControls.password_confirm.hasError('pattern')">Invalid enter max length password. Correct length: 16</div>
+                    </div>
+                </mat-form-field>
+
+                <div class="registration__form__redirect-block" *ngIf="statusCreated">
+                    Redirect to login across {{counter.decimal}} second
+                </div>
+
+                <div class="registration__form__buttons d-flex justify-content-between">
+                    <a class="btn btn-link" [routerLink]="'/login'">Sign in</a>
+                    <button class="btn btn-link" type="submit">Sign up</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

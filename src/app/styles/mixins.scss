@@ -1,0 +1,19 @@
+@mixin font($name: 'Helwetica', $weight: 400, $size: 24px, $l_h: 36px) {
+  font-family: $name;
+  font-weight: $weight;
+  font-size: $size;
+  line-height: $l_h;
+  @content;
+}
+
+@mixin w_h($w: 100%, $h: 100%) {
+  width: $w;
+  height: $h;
+}
+
+@mixin choose_clr_mat_spinner($clr) {
+  .mat-progress-spinner circle,
+  .mat-spinner circle {
+    stroke: $clr !important;
+  }
+}
