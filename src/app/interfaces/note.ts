@@ -1,6 +1,9 @@
 export interface Note {
-    title: string;
+    id?: number;
+    position?: number;
+    created_at?: Date;
+    updated_at?: Date;
+    due_date: Date|null;
     text: string;
-    archived: boolean;
-    due_date: Date;
+    title: string;
 }

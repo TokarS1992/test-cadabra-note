@@ -1,11 +1,19 @@
 @import "./mixins";
+@import "./bootstrap.config";
 
-$bg_header: #F9F9F9;
-$header: (clr: #6C757C, height: 64px);
+$header: (clr: #6C757C, height: 64px, bg: #F9F9F9);
 $clr_error: #FF7275;
 $bg_clr_btn: #403F3F;
 $h_without_header: calc(100vh - #{map_get($header, height)});
 $bg_clr_spinner: #a5a0a00f;
+$bg_dropdown: #403F3F;
+$gutter_global_container: (left: 70px, right: 40px);
+$clr_settings: #616161;
+
+%global-container-styles {
+  padding-left: map_get($gutter_global_container, left);
+  padding-right: map_get($gutter_global_container, right);
+}
 
 %form-styles {
   padding: 60px 80px 70px 80px;
@@ -50,4 +58,48 @@ $bg_clr_spinner: #a5a0a00f;
   @include w_h();
   background-color: $bg_clr_spinner;
   z-index: 9999;
+}
+
+%dropdown {
+  top: 105%;
+  border-radius: 3px;
+  background-color: $bg_dropdown;
+  box-shadow: 0 2px 12px 0 rgba(71,61,61,0.1);
+  padding: 15px 0 15px 20px;
+  width: 100%;
+  z-index: 9999;
+  .list-group {
+    float: left;
+    &-item {
+      border: none;
+      padding: 0;
+      background-color: $bg_dropdown;
+      margin-bottom: 10px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+      @include font(null, bold, 16px, 19px) {
+        color: #fff;
+      }
+    }
+  }
+}
+
+%button-dropdown-styles {
+  color: $clr_settings;
+  @include font(null, bold, 14px, 16px);
+  > * {
+    display: inline-block;
+  }
+  .icon {
+    margin: 0 24px;
+    @include w_h(12px, 12px);
+    transition: transform ease-in-out 0.3s;
+    &.arrow-up {
+      transform: rotate(0);
+    }
+    &.arrow-down {
+      transform: rotate(-180deg);
+    }
+  }
 }

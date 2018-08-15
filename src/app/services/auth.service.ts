@@ -4,9 +4,9 @@ import { map } from 'rxjs/operators';
 import { ErrorsTypes } from '../utils/abstructError';
 import { AbstructHttp } from '../utils/abstractHttp';
 import Cookies from 'js-cookie';
-// import { User } from '../interfaces/user';
-
-const keyHeaders = ['access-token', 'client', 'expiry', 'uid'];
+import { Observable } from 'rxjs/observable';
+import 'rxjs-compat';
+import { keyHeaders } from '../utils/keyHeaders';
 
 @Injectable({
   providedIn: 'root'
@@ -52,5 +52,7 @@ export class AuthService extends ErrorsTypes {
                 Cookies.remove(keyHeaders[k]);
             }
         }
+        localStorage.removeItem('currentUser');
+        return Observable.of('Success logout');
     }
 }

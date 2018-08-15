@@ -13,6 +13,7 @@ import { LocalDirective } from './directives/local.directive';
 import { ApiInterceptor } from './interceptors/api.interceptor';
 
 import { AppComponent } from './app.component';
+import { SvgIconComponent } from './components/svg-icon/svg-icon.component';
 
 @NgModule({
     declarations: [
@@ -21,7 +22,8 @@ import { AppComponent } from './app.component';
         components.RegistrationComponent,
         components.HeaderComponent,
         components.SnackBarComponent,
-        LocalDirective
+        LocalDirective,
+        SvgIconComponent
     ],
     imports: [
         HttpClientModule,

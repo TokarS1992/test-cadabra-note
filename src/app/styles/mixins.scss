@@ -6,6 +6,15 @@
   @content;
 }
 
+@mixin bg($url, $repeat: no-repeat, $size: contain) {
+  @if $url {
+    background-image: url($url);
+  }
+  background-repeat: $repeat;
+  background-size: $size;
+  @content;
+}
+
 @mixin w_h($w: 100%, $h: 100%) {
   width: $w;
   height: $h;

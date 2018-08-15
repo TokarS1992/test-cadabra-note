@@ -1,18 +1,24 @@
 <header>
     <div class="container">
-        <div class="header d-flex align-items-center justify-content-between">
+        <div class="header d-flex align-items-center justify-content-between row no-gutters">
             <div class="header__title">{{titleView}}</div>
 
-            <div class="header__user-settings">
-                <div class="header__user-settings__button pointer d-flex align-items-center" [matMenuTriggerFor]="menu" (click)="handleClickMenu()" [class.open]="toggleMenu">
+            <div class="header__user-settings position-relative" [class.open]="toggleMenu" #userSettings *ngIf="currentUser">
+                <div class="header__user-settings__button pointer d-flex align-items-center" (click)="toggleMenu = !toggleMenu" [attr.area-label]="toggleMenu">
                     <span>{{currentUser.name}}</span>
-                    <span class="header__user-settings__button__icon"></span>
+                    <span class="icon" [ngClass]="{
+                        'arrow-up': !toggleMenu,
+                        'arrow-down': toggleMenu
+                    }"></span>
                 </div>
 
-                <mat-menu #menu="matMenu" []>
-                    <button mat-menu-item>Item 1</button>
-                    <button mat-menu-item>Item 2</button>
-                </mat-menu>
+                <div
+                        class="header__user-settings__dropdown position-absolute pointer"
+                        [@triggerDropdown]="stateAnimate" (click)="logout()">
+                    <ul class="list-group">
+                        <li class="list-group-item list-group-item-action">Logout</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

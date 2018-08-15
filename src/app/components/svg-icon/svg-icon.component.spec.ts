@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NoteListSearchComponent } from './note-list-search.component';
+import { SvgIconComponent } from './svg-icon.component';
 
-describe('NoteListSearchComponent', () => {
-  let component: NoteListSearchComponent;
-  let fixture: ComponentFixture<NoteListSearchComponent>;
+describe('SvgIconComponent', () => {
+  let component: SvgIconComponent;
+  let fixture: ComponentFixture<SvgIconComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NoteListSearchComponent ]
+      declarations: [ SvgIconComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NoteListSearchComponent);
+    fixture = TestBed.createComponent(SvgIconComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

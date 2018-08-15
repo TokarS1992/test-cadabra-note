@@ -1,0 +1,43 @@
+@import "../../../styles/variables";
+@import "../../../styles/mixins";
+
+.wrapper-note {
+  //& .container > * {
+  //  @extend %global-container-styles;
+  //}
+  .note-index__top {
+    @extend %global-container-styles;
+    @include w_h(100%, map_get($header, height));
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
+    &__select {
+      @include w_h(130px, auto);
+      @extend %button-dropdown-styles;
+      .icon {
+        @include bg('../../../../assets/ArrowUp.svg') {
+          background-position: center;
+        }
+      }
+      &__dropdown {
+        @extend %dropdown;
+      }
+    }
+    &__search {
+      &__icon {
+        position: relative;
+        top: 3px;
+        display: inline-block;
+        margin-right: 10px;
+        @include w_h(16px, 16px);
+        @include bg('../../../../assets/Search.svg') {
+          background-position: center;
+        }
+      }
+    }
+  }
+  .note-index__content {
+    $h_content: calc(100vh - #{map_get($header, height) * 2});
+
+    @include w_h(100%, $h_content);
+    //margin-top: ;
+  }
+}

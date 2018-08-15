@@ -26,7 +26,7 @@
                             length: locControls.name.hasError('minlength') || locControls.name.hasError('maxlength')
                         }"
                          *ngIf="locControls.name.errors && locControls.name.touched">
-                        <div *ngIf="locControls.name.hasError('required')">This field required</div>
+                        <div *ngIf="locControls.name.hasError('required')">This field <strong>required</strong></div>
                         <div *ngIf="locControls.name.hasError('minlength')">Invalid enter min length password. Correct length: 2</div>
                         <div *ngIf="locControls.name.hasError('maxlength')">Invalid enter max length password. Correct length: 20</div>
                     </div>
@@ -41,7 +41,7 @@
                             email: locControls.email.hasError('email')
                         }"
                          *ngIf="locControls.email.errors && locControls.email.touched">
-                        <div *ngIf="locControls.email.hasError('required')">This field required</div>
+                        <div *ngIf="locControls.email.hasError('required')">This field <strong>required</strong></div>
                         <div *ngIf="locControls.email.hasError('email')">Incorrect email address</div>
                     </div>
                 </mat-form-field>
@@ -54,7 +54,7 @@
                         length: locControls.password.hasError('minlength') || locControls.password.hasError('maxlength')
                     }"
                          *ngIf="locControls.password.errors && locControls.password.touched">
-                        <div *ngIf="locControls.password.hasError('required')">This field required</div>
+                        <div *ngIf="locControls.password.hasError('required')">This field <strong>required</strong></div>
                         <div *ngIf="locControls.password.hasError('pattern')">Invalid enter symbols. Correct: any letters or/and numbers without special character</div>
                         <div *ngIf="locControls.password.hasError('minlength')">Invalid enter min length password. Correct length: 8</div>
                         <div *ngIf="locControls.password.hasError('maxlength')">Invalid enter max length password. Correct length: 16</div>
@@ -70,7 +70,7 @@
                         pattern: locControls.password_confirm.hasError('pattern')
                     }"
                          *ngIf="locControls.password_confirm.errors && locControls.password_confirm.touched">
-                        <div *ngIf="locControls.password_confirm.hasError('required')">This field required</div>
+                        <div *ngIf="locControls.password_confirm.hasError('required')">This field <strong>required</strong></div>
                         <div *ngIf="locControls.password_confirm.hasError('pattern')">Invalid enter symbols. Correct: any letters or/and numbers without special character</div>
                         <div *ngIf="locControls.password_confirm.hasError('minlength') && !locControls.password_confirm.hasError('pattern')">Invalid enter min length password. Correct length: 8</div>
                         <div *ngIf="locControls.password_confirm.hasError('maxlength') && !locControls.password_confirm.hasError('pattern')">Invalid enter max length password. Correct length: 16</div>

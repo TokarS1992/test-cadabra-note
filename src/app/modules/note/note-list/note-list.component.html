@@ -1,3 +1,11 @@
-<p>
-  note-list works!
-</p>
+<div class="list-notes h-100">
+    <div class="list-notes__item pointer" *ngFor="let item of notes">
+        <h3 class="list-notes__item__title">{{item.title ? item.title : defaultTitle}}</h3>
+        <div class="list-notes__item__content d-flex justify-content-between align-items-center">
+            <div class="list-notes__item__content__text">{{item.text ? item.text : defaultContent}}</div>
+            <div class="list-notes__item__content__due-date" *ngIf="item.due_date">{{moment(item.due_date).format('DD.MM.YYYY')}}</div>
+        </div>
+    </div>
+
+    <div *ngIf="notes.length === 0">None notes</div>
+</div>

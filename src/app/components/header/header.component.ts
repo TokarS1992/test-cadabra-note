@@ -1,23 +1,38 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { dropDownAnimate } from '../../utils/animations';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.scss'],
+    animations: [ dropDownAnimate ]
 })
 export class HeaderComponent implements OnInit {
     @Input() titleView = 'Note app';
     toggleMenu = false;
-    constructor() { }
+    constructor(
+        private router: Router,
+        private authService: AuthService
+    ) { }
 
     get currentUser() {
-        return JSON.parse(localStorage.getItem('currentUser'));
+        const currentUser = localStorage.getItem('currentUser');
+        return currentUser ? JSON.parse(currentUser) : null;
     }
 
-    ngOnInit() {
+    get stateAnimate() {
+        return this.toggleMenu ? 'active' : 'inactive';
     }
 
-    handleClickMenu() {
-        this.toggleMenu = !this.toggleMenu;
+    ngOnInit() {}
+
+    logout() {
+        this.authService.logout().subscribe((status) => {
+            this.router.navigate(['/login']).then(() => {
+                this.toggleMenu = false;
+            });
+        });
     }
 }
