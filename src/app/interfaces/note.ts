@@ -6,4 +6,5 @@ export interface Note {
     due_date: Date|null;
     text: string;
     title: string;
+    archived: boolean;
 }

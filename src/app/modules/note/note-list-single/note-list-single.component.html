@@ -1,3 +1,17 @@
-<p>
-  note-list-single works!
-</p>
+<div class="note-single">
+    <div *ngIf="currentItem">
+        <mat-form-field class="w-75 note-single__title">
+            <input matInput placeholder="Title note" value="Sushi" [(ngModel)]="currentItem.title">
+        </mat-form-field>
+
+        <mat-form-field class="w-75 note-single__text">
+            <textarea matInput placeholder="Text note" [(ngModel)]="currentItem.text"></textarea>
+        </mat-form-field>
+
+        <button class="btn btn-secondary d-block" (click)="update()">Update</button>
+    </div>
+
+    <div *ngIf="!currentItem" class="note-single__none-selected">
+        <h3>Select note from left panel or add new</h3>
+    </div>
+</div>

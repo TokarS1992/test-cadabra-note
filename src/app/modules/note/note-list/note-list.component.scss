@@ -2,7 +2,8 @@
 @import "../../../styles/mixins";
 
 $clr_border_item: #B6BABD;
-$clr_text_item: #6C757C;
+$clr_title_item: (default: #403F3F, archived: #6C757C);
+$clr_text_item: (default: #6C757C, archived: #B5BABD);
 $clr_date_item: #FF7275;
 
 .list-notes {
@@ -11,18 +12,37 @@ $clr_date_item: #FF7275;
   &__item {
     padding: 15px 0 20px 20px;
     border-bottom: 1px solid $clr_border_item;
+    $self: &;
+
+    &.archived {
+      #{$self}__title {
+        text-decoration: line-through;
+        color: map_get($clr_text_item, archived);
+      }
+
+      #{$self}__content {
+        &__text {
+          text-decoration: line-through;
+          color: map_get($clr_title_item, archived);
+        }
+      }
+    }
+
     &__title {
+      color: map_get($clr_title_item, default);
       @include font(null, bold, 20px, 24px);
     }
+
     &__content {
       &__text {
-        color: $clr_text_item;
+        color: map_get($clr_text_item, default);
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
         @include font(null, bold, 14px, 16px);
         @include w_h(70%, auto);
       }
+
       &__due-date {
         color: $clr_date_item;
         @include font(null, 500, 16px, 19px);

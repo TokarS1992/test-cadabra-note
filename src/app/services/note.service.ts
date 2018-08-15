@@ -5,7 +5,6 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs/observable';
 import 'rxjs-compat';
 import { Note } from '../interfaces/note';
-import * as _ from 'underscore';
 import { IQueryParams } from '../modules/note/note-index/note-index.component';
 
 @Injectable({
@@ -14,25 +13,28 @@ import { IQueryParams } from '../modules/note/note-index/note-index.component';
 export class NoteService {
     headers: HttpHeaders;
     options: any;
-    accessControls;
     constructor(
       private http: HttpClient
     ) {
-        this.accessControls = AbstructHttp.getAccessControls();
+        this.headers = new HttpHeaders(AbstructHttp.getAccessControls());
+        this.options = { withCredentials: true, observe: 'response', headers: this.headers};
     }
 
     getNotes(data: IQueryParams): Observable<Note[]|any[]> {
-        const checkEmptyData = _.chain(data).values().compact().value();
-        this.headers = new HttpHeaders(this.accessControls);
-        this.options = { withCredentials: true, observe: 'response', headers: this.headers};
-
-        if (checkEmptyData.length > 0) {
-            this.options.params = data;
-        }
+        this.options.params = data;
 
         return this.http.get('notes', this.options).pipe(
             map((res: HttpResponse<any>) => {
                 return res.body;
+            })
+        );
+    }
+
+    updateNote(data: Note): Observable<any> {
+        const body = AbstructHttp.bodyToFormData(data);
+        return this.http.put(`notes/${data.id}`, body, this.options).pipe(
+            map((res: HttpResponse<any>) => {
+                return res;
             })
         );
     }

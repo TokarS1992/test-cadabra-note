@@ -17,4 +17,8 @@ export class NoteListComponent implements OnInit {
 
     ngOnInit() {}
 
+    selectItem(item: Note) {
+        this.selectedItem.emit({ item: item });
+    }
+
 }

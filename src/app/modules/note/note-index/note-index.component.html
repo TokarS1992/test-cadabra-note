@@ -46,11 +46,20 @@
     <div class="container">
         <div class="note-index__content">
             <div class="row no-gutters h-100">
-                <div class="col col-5 h-100">
-                    <app-note-list [notes]="notes"></app-note-list>
+                <div class="col col-5 h-100 position-relative">
+                    <div class="note-index__content__pending d-flex justify-content-center align-items-center" *ngIf="pendingNotes">
+                        <mat-spinner [diameter]="60"></mat-spinner>
+                    </div>
+
+                    <app-note-list [notes]="notes" (selectedItem)="selectItem($event)"></app-note-list>
                 </div>
-                <div class="col col-7">
-                    list-v
+
+                <div class="col col-7 position-relative">
+                    <div class="note-index__content__pending d-flex justify-content-center align-items-center" *ngIf="pendingUpdateNote">
+                        <mat-spinner [diameter]="60"></mat-spinner>
+                    </div>
+
+                    <app-note-list-single [currentItem]="selectedItem" (updateItem)="updateItem($event)"></app-note-list-single>
                 </div>
             </div>
         </div>

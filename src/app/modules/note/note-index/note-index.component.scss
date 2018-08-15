@@ -38,6 +38,10 @@
     $h_content: calc(100vh - #{map_get($header, height) * 2});
 
     @include w_h(100%, $h_content);
+    &__pending {
+      @extend %spinner-form-styles;
+      @include choose_clr_mat_spinner($bg_clr_btn);
+    }
     //margin-top: ;
   }
 }

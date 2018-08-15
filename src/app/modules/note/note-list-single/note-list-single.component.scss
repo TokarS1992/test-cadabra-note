@@ -1,0 +1,24 @@
+@import "../../../styles/variables";
+@import "../../../styles/mixins";
+
+$clr_title: #403F3F;
+$clr_text: #6C757C;
+
+.note-single {
+  padding-top: 75px;
+  padding-left: 80px;
+  &__title {
+    color: $clr_title;
+    @include font(null, bold, 36px, 42px);
+  }
+  &__text {
+    color: $clr_text;
+    @include font(null, bold, 24px, 28px);
+    textarea {
+      min-height: 115px;
+    }
+  }
+  &__none-selected {
+    color: map_get($header, clr);
+  }
+}

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Note } from '../../../interfaces/note';
 
 @Component({
   selector: 'app-note-list-single',
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./note-list-single.component.scss']
 })
 export class NoteListSingleComponent implements OnInit {
+    @Input() currentItem: Note = null;
+    @Output() updateItem = new EventEmitter<any>();
+    constructor() { }
 
-  constructor() { }
+    ngOnInit() {
+    }
 
-  ngOnInit() {
-  }
+    update() {
+        this.updateItem.emit({ item: this.currentItem });
+    }
 
 }
