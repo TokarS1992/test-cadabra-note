@@ -2,6 +2,11 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Note } from '../../../interfaces/note';
 import * as moment from 'moment';
 
+interface SortEvent {
+    currentIndex: number;
+    newIndex: number;
+}
+
 @Component({
     selector: 'app-note-list',
     templateUrl: './note-list.component.html',
@@ -21,4 +26,12 @@ export class NoteListComponent implements OnInit {
         this.selectedItem.emit({ item: item });
     }
 
+    sort(event: SortEvent) {
+        console.log(event);
+        const current = this.notes[event.currentIndex];
+        const swapWith = this.notes[event.newIndex];
+
+        this.notes[event.newIndex] = current;
+        this.notes[event.currentIndex] = swapWith;
+    }
 }

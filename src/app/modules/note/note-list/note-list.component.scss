@@ -12,6 +12,14 @@ $clr_date_item: #FF7275;
   &__item {
     padding: 15px 0 20px 20px;
     border-bottom: 1px solid $clr_border_item;
+
+    &__drag {
+      &.sortable.dragging {
+        background: none;
+        border: 1px dashed black;
+        color: transparent;
+      }
+    }
     $self: &;
 
     &.archived {

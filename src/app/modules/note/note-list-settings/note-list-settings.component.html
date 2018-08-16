@@ -33,18 +33,10 @@
             <label class="m-0 text-capitalize pointer">Delete</label>
         </button>
 
-        <!--<button-->
-                <!--class="note-settings__panel__el d-flex align-items-center pointer"-->
-                <!--mat-button-->
-                <!--[disabled]="!currentItem.id && !currentItem.position"-->
-                <!--(click)="currentItem.archived = !currentItem.archived"-->
-        <!--&gt;-->
         <mat-checkbox
                 [disabled]="!currentItem.id && !currentItem.position"
                 [(ngModel)]="currentItem.archived"
                 class="d-flex align-items-center"
         >Archived</mat-checkbox>
-            <!--<label class="m-0 text-capitalize pointer">Archived</label>-->
-        <!--</button>-->
     </div>
 </div>

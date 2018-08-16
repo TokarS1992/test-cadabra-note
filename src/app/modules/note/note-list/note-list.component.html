@@ -1,9 +1,19 @@
 <div class="list-notes h-100">
-    <div class="list-notes__item pointer" *ngFor="let item of notes" (click)="selectItem(item)" [class.archived]="item.archived">
-        <h3 class="list-notes__item__title">{{item.title ? item.title : defaultTitle}}</h3>
-        <div class="list-notes__item__content d-flex justify-content-between align-items-center">
-            <div class="list-notes__item__content__text">{{item.text ? item.text : defaultContent}}</div>
-            <div class="list-notes__item__content__due-date text-uppercase" *ngIf="item.due_date && !item.archived">{{moment(item.due_date).format('DD.MM.YYYY')}}</div>
+    <div class="list-notes__item pointer" *ngFor="let item of notes" (click)="selectItem(item)" [class.archived]="item.archived" appSortable>
+        <div class="list-notes__item__drag">
+            <h3 class="list-notes__item__title">{{item.title ? item.title : defaultTitle}}</h3>
+            <div class="list-notes__item__content d-flex justify-content-between align-items-center">
+                <div class="list-notes__item__content__text">{{item.text ? item.text : defaultContent}}</div>
+                <div class="list-notes__item__content__due-date text-uppercase" *ngIf="item.due_date && !item.archived">{{moment(item.due_date).format('DD.MM.YYYY')}}</div>
+            </div>
+        </div>
+
+        <div class="list-notes__item__drag" *appDragHelper>
+            <h3 class="list-notes__item__title">{{item.title ? item.title : defaultTitle}}</h3>
+            <div class="list-notes__item__content d-flex justify-content-between align-items-center">
+                <div class="list-notes__item__content__text">{{item.text ? item.text : defaultContent}}</div>
+                <div class="list-notes__item__content__due-date text-uppercase" *ngIf="item.due_date && !item.archived">{{moment(item.due_date).format('DD.MM.YYYY')}}</div>
+            </div>
         </div>
     </div>
 
