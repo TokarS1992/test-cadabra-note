@@ -36,6 +36,7 @@ export class NoteIndexComponent implements OnInit {
     notes: Note[] = [];
     pendingNotes = false;
     pendingUpdateNote = false;
+
     constructor(
         private noteService: NoteService,
         private snackBar: MatSnackBar

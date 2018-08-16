@@ -26,7 +26,7 @@ export class NoteListComponent implements OnInit {
         this.selectedItem.emit({ item: item });
     }
 
-    sort(event: SortEvent) {
+    public sort(event: SortEvent) {
         const current = this.notes[event.currentIndex];
         const swapWith = this.notes[event.newIndex];
 
