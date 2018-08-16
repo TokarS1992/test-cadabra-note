@@ -21,9 +21,27 @@ export class NoteService {
     }
 
     getNotes(data: IQueryParams): Observable<Note[]|any[]> {
+        if (data.search_keywords) data.filter = 'active';
         this.options.params = data;
 
         return this.http.get('notes', this.options).pipe(
+            map((res: HttpResponse<any>) => {
+                return res.body;
+            })
+        );
+    }
+
+    deteleNote(id: number): Observable<Note[]|any[]> {
+        return this.http.delete(`notes/${id}`, this.options).pipe(
+            map((res: HttpResponse<any>) => {
+                return res.body;
+            })
+        );
+    }
+
+    creteNote(data: Note): Observable<any> {
+        const body = AbstructHttp.bodyToFormData(data);
+        return this.http.post(`notes`, body, this.options).pipe(
             map((res: HttpResponse<any>) => {
                 return res.body;
             })

@@ -10,7 +10,7 @@
     @include w_h(100%, map_get($header, height));
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
     &__select {
-      @include w_h(130px, auto);
+      @include w_h(35%, auto);
       @extend %button-dropdown-styles;
       .icon {
         @include bg('../../../../assets/ArrowUp.svg') {
@@ -22,6 +22,7 @@
       }
     }
     &__search {
+      width: 50%;
       &__icon {
         position: relative;
         top: 3px;

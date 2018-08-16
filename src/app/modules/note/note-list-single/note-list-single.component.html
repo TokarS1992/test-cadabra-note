@@ -1,5 +1,5 @@
 <div class="note-single">
-    <div *ngIf="currentItem">
+    <div *ngIf="!isEmptyItem">
         <mat-form-field class="w-75 note-single__title">
             <input matInput placeholder="Title note" value="Sushi" [(ngModel)]="currentItem.title">
         </mat-form-field>
@@ -8,10 +8,11 @@
             <textarea matInput placeholder="Text note" [(ngModel)]="currentItem.text"></textarea>
         </mat-form-field>
 
-        <button class="btn btn-secondary d-block" (click)="update()">Update</button>
+        <button *ngIf="currentItem.id" class="d-block" mat-raised-button (click)="update()">Update</button>
+        <button *ngIf="!currentItem.id" class="d-block" mat-raised-button (click)="create()">Create</button>
     </div>
 
-    <div *ngIf="!currentItem" class="note-single__none-selected">
+    <div *ngIf="isEmptyItem" class="note-single__none-selected">
         <h3>Select note from left panel or add new</h3>
     </div>
 </div>

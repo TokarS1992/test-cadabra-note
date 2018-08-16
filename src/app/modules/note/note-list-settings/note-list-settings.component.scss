@@ -1,0 +1,56 @@
+@import "../../../styles/variables";
+@import "../../../styles/mixins";
+
+$path: '../../../../';
+$map_icons: (date: '#{$path}assets/Date.svg', new: '#{$path}assets/New.svg', remove: '#{$path}assets/Remove.svg');
+
+.note-settings {
+  &__panel {
+    .mat-checkbox {
+      .mat-ripple-element {
+        background-color: rgba(255, 215, 109, 0.26) !important;
+      }
+      &-checked {
+        .mat-checkbox-background {
+          background-color: #FFD76D;
+        }
+        .mat-ripple-element {
+          background-color: rgba(255, 215, 109, 0.26) !important;
+        }
+      }
+      &-layout {
+        margin: 0;
+      }
+      &-label {
+        @include font(null, 300, 16px, 19px);
+        cursor: pointer;
+      }
+      &-inner-container {
+        margin-right: 20px;
+      }
+    }
+    &__el {
+      border: none;
+      margin-right: 3rem !important;
+      display: inline-block;
+      @include font(null, 300, 16px, 19px);
+      &:focus {
+        outline: none;
+      }
+      .icon {
+        @include w_h(24px, 24px);
+        @each $key, $val in $map_icons {
+          &.#{$key} {
+            @include bg($val) {
+              background-position: center;
+            }
+          }
+        }
+        margin-right: 20px;
+      }
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}

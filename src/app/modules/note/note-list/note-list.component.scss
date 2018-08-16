@@ -46,7 +46,7 @@ $clr_date_item: #FF7275;
       &__due-date {
         color: $clr_date_item;
         @include font(null, 500, 16px, 19px);
-        @include w_h(20%, auto);
+        @include w_h(30%, auto);
       }
     }
   }

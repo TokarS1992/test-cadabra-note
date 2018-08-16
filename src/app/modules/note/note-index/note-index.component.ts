@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ElementRef } from '@angular/core';
 import { dropDownAnimate } from '../../../utils/animations';
 import * as _ from 'underscore';
 import { IlistSort, listSort } from './list-sort';
@@ -14,6 +14,12 @@ export interface IQueryParams {
     per_page?: number;
 }
 
+const filterBy = (key: string, item: any) => {
+    return function (el: any) {
+        return el[key] !== item[key];
+    };
+};
+
 @Component({
     selector: 'app-note-index',
     templateUrl: './note-index.component.html',
@@ -24,7 +30,7 @@ export interface IQueryParams {
 export class NoteIndexComponent implements OnInit {
     listSort: IlistSort[] = listSort;
     selectedSort: IlistSort;
-    selectedItem: Note = null;
+    selectedItem: Note|object = {};
     toggleMenu = false;
     searchVal = '';
     notes: Note[] = [];
@@ -53,9 +59,12 @@ export class NoteIndexComponent implements OnInit {
         this.getNotes(this.queryParams);
     }
 
+    handleSearch(input?: HTMLInputElement) {
+        this.getNotes(this.queryParams);
+    }
+
     selectSortItem(selected: IlistSort) {
         this.selectedSort = selected;
-        this.selectedItem = null;
         this.toggleMenu = false;
         this.getNotes(this.queryParams);
     }
@@ -64,10 +73,78 @@ export class NoteIndexComponent implements OnInit {
         this.selectedItem = item;
     }
 
+    addNewNote() {
+        const maxPos: Note = _.max(this.notes, (note: Note) => {
+           return note.position;
+        });
+
+        this.notes.unshift({
+            due_date: null,
+            text: '',
+            title: '',
+            archived: false,
+            position: maxPos.position++
+        });
+
+        this.selectedItem = _.first(this.notes);
+    }
+
+    removeNote({ item }) {
+        if (item.id) {
+            this.pendingNotes = true;
+            this.pendingUpdateNote = true;
+            this.noteService.deteleNote(item.id).subscribe(res => {
+                this.pendingNotes = false;
+                this.pendingUpdateNote = false;
+                this.notes = _.filter(this.notes, filterBy('id', item));
+
+                this.snackBar.openFromComponent(SnackBarComponent,{
+                    data: {
+                        type: 'success',
+                        message: `Note with id: ${item.id} successful deleted`
+                    }
+                });
+            });
+        } else {
+            this.notes = _.filter(this.notes, filterBy('position', item));
+        }
+        this.selectedItem = {};
+    }
+
+    createNote({ item }) {
+        this.pendingUpdateNote = true;
+        delete item.position;
+
+        this.noteService.creteNote(item).subscribe((res: Note) => {
+            this.selectedItem = res;
+            this.pendingUpdateNote = false;
+
+            this.notes = _.map(this.notes, (note) => {
+               if (!note.id) {
+                   note = res;
+               }
+               return note;
+            });
+
+            console.log(this.notes);
+
+            this.snackBar.openFromComponent(SnackBarComponent,{
+                data: {
+                    type: 'success',
+                    message: `Note was successful created`
+                }
+            });
+        });
+    }
+
     getNotes(params: IQueryParams) {
         this.pendingNotes = true;
+        if (!_.isEmpty(this.selectedItem)) this.pendingUpdateNote = true;
+
         this.noteService.getNotes(params).subscribe((res: Note[]|any) => {
             console.log(res);
+            this.selectedItem = {};
+            this.pendingUpdateNote = false;
             this.notes = res
                 .sort((note1: Note, note2: Note) => {
                     return note1.position > note2.position ? 1 : -1;

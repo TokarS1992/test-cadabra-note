@@ -1,3 +1,50 @@
-<p>
-  note-list-settings works!
-</p>
+<div class="note-settings h-100">
+    <div class="note-settings__panel d-flex">
+        <button class="note-settings__panel__el d-flex align-items-center pointer" mat-button (click)="addItem()">
+            <span class="icon d-inline-block new"></span>
+            <label class="m-0 text-capitalize pointer">New note</label>
+        </button>
+
+        <button
+                class="note-settings__panel__el d-flex align-items-center pointer"
+                mat-button
+                [disabled]="!currentItem.id && !currentItem.position"
+                (click)="picker.open()"
+        >
+            <span class="icon d-inline-block date"></span>
+            <label class="m-0 text-capitalize pointer">Due date</label>
+            <input
+                    [min]="minDate"
+                    [hidden]="true"
+                    [(ngModel)]="currentItem.due_date"
+                    [matDatepicker]="picker"
+            >
+            <mat-datepicker touchUi #picker></mat-datepicker>
+        </button>
+
+        <button
+                class="note-settings__panel__el d-flex align-items-center pointer"
+                mat-button
+                color="warn"
+                [disabled]="!currentItem.id && !currentItem.position"
+                (click)="deleteItem()"
+        >
+            <span class="icon d-inline-block remove"></span>
+            <label class="m-0 text-capitalize pointer">Delete</label>
+        </button>
+
+        <!--<button-->
+                <!--class="note-settings__panel__el d-flex align-items-center pointer"-->
+                <!--mat-button-->
+                <!--[disabled]="!currentItem.id && !currentItem.position"-->
+                <!--(click)="currentItem.archived = !currentItem.archived"-->
+        <!--&gt;-->
+        <mat-checkbox
+                [disabled]="!currentItem.id && !currentItem.position"
+                [(ngModel)]="currentItem.archived"
+                class="d-flex align-items-center"
+        >Archived</mat-checkbox>
+            <!--<label class="m-0 text-capitalize pointer">Archived</label>-->
+        <!--</button>-->
+    </div>
+</div>
