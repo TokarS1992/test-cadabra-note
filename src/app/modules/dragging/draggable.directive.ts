@@ -21,7 +21,7 @@ export class DraggableDirective {
 
     @HostListener('pointerdown', ['$event'])
     onPointerDown(event: PointerEvent): void {
-        // added after YouTube video: ignore right-click
+        // only left button
         if (event.button !== 0) {
             return;
         }
@@ -41,7 +41,6 @@ export class DraggableDirective {
         this.dragMove.emit(event);
     }
 
-    // added after YouTube video: pointercancel
     @HostListener('document:pointercancel', ['$event'])
     @HostListener('document:pointerup', ['$event'])
     onPointerUp(event: PointerEvent): void {

@@ -18,7 +18,6 @@ export class NoteListSettingsComponent implements OnInit, OnChanges {
     constructor() { }
 
     ngOnInit() {
-        console.log(this.minDate);
         this.selectedDate = new FormControl(this.currentItem['due_date']);
     }
 

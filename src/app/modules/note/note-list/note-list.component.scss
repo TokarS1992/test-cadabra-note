@@ -6,6 +6,10 @@ $clr_title_item: (default: #403F3F, archived: #6C757C);
 $clr_text_item: (default: #6C757C, archived: #B5BABD);
 $clr_date_item: #FF7275;
 
+.none-elements {
+  padding: 35px 0 0 35px;
+}
+
 .list-notes {
   padding: 35px 0 0 35px;
   box-shadow: 0 2px 12px 0 rgba(71,61,61,0.1);
@@ -13,9 +17,18 @@ $clr_date_item: #FF7275;
     padding: 15px 0 20px 20px;
     border-bottom: 1px solid $clr_border_item;
 
+    &.sortable.dragging {
+      background-color: #fff;
+      color: transparent;
+      border: none;
+      .drag-elem {
+        visibility: hidden;
+      }
+    }
+
     &__drag {
-      &.sortable.dragging {
-        background: none;
+      &.drug-elem {
+        background-color: #A2D7F5;
         border: 1px dashed black;
         color: transparent;
       }

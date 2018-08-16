@@ -25,4 +25,15 @@ body {
       padding-left: 0;
     }
   }
+
+  .draggable {
+    cursor: move;
+    user-select: none;
+  }
+
+  .drug-elem {
+    background-color: #A2D7F5;
+    border: 1px dashed black;
+    color: transparent;
+  }
 }

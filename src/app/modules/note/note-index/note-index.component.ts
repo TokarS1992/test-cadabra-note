@@ -74,9 +74,9 @@ export class NoteIndexComponent implements OnInit {
     }
 
     addNewNote() {
-        const maxPos: Note = _.max(this.notes, (note: Note) => {
+        const maxPos: Note|any = this.notes.length > 0 ? _.max(this.notes, (note: Note) => {
            return note.position;
-        });
+        }) : { position : 1 };
 
         this.notes.unshift({
             due_date: null,
@@ -120,7 +120,7 @@ export class NoteIndexComponent implements OnInit {
             this.pendingUpdateNote = false;
 
             this.notes = _.map(this.notes, (note) => {
-               if (!note.id) {
+               if (!note.id && note.position === item.position) {
                    note = res;
                }
                return note;
@@ -149,9 +149,6 @@ export class NoteIndexComponent implements OnInit {
                 .sort((note1: Note, note2: Note) => {
                     return note1.position > note2.position ? 1 : -1;
                 });
-                // .sort((note1: Note): number => {
-                //     return note1.archived ? 1 : -1;
-                // });
             this.pendingNotes = false;
         });
     }

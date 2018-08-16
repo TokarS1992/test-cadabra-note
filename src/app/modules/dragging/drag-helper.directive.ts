@@ -1,4 +1,4 @@
-import { Directive, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, OnDestroy, OnInit, TemplateRef, ViewContainerRef, HostBinding } from '@angular/core';
 import { DraggableDirective } from './draggable.directive';
 import { GlobalPositionStrategy, Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
@@ -8,7 +8,7 @@ import { TemplatePortal } from '@angular/cdk/portal';
 })
 export class DragHelperDirective implements OnInit, OnDestroy {
     private overlayRef: OverlayRef;
-    private positionStrategy = new GlobalPositionStrategy(document);
+    private positionStrategy = new GlobalPositionStrategy();
     private startPosition?: { x: number; y: number };
 
     constructor(private draggable: DraggableDirective,
@@ -21,14 +21,14 @@ export class DragHelperDirective implements OnInit, OnDestroy {
         this.draggable.dragMove.subscribe(event => this.onDragMove(event));
         this.draggable.dragEnd.subscribe(() => this.onDragEnd());
 
-        // create an overlay...
+        // create an overlay
         this.overlayRef = this.overlay.create({
             positionStrategy: this.positionStrategy
         });
     }
 
     ngOnDestroy(): void {
-        // remove the overlay...
+        // remove the overlay with dragging element
         this.overlayRef.dispose();
     }
 
@@ -41,18 +41,22 @@ export class DragHelperDirective implements OnInit, OnDestroy {
             y: event.clientY - clientRect.top
         };
 
-        // added after YouTube video: width
-        this.overlayRef.overlayElement.style.width = `${clientRect.width}px`;
+        this.overlayRef.overlayElement.style.width = `${this.draggable.element.nativeElement.clientWidth}px`;
     }
 
     private onDragMove(event: PointerEvent): void {
         if (!this.overlayRef.hasAttached()) {
-            // render the helper in the overlay
+
+            // render dragging element in the overlay
             this.overlayRef.attach(new TemplatePortal(this.templateRef, this.viewContainerRef));
-            // added after YouTube video: width
+
+            // styling dragging element
             const rootElement = this.overlayRef.overlayElement.firstChild as HTMLElement;
-            rootElement.style.width = '100%';
+            rootElement.style.width = `${this.draggable.element.nativeElement.clientWidth}px`;
             rootElement.style.boxSizing = 'border-box';
+            rootElement.style.backgroundColor = '#A2D7F5';
+            rootElement.style.padding = '15px 0 20px 20px';
+            rootElement.style.boxShadow = '0 4px 8px 0 rgba(0,0,0,0.25)';
         }
 
         // position the helper...

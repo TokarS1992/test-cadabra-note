@@ -27,7 +27,6 @@ export class NoteListComponent implements OnInit {
     }
 
     sort(event: SortEvent) {
-        console.log(event);
         const current = this.notes[event.currentIndex];
         const swapWith = this.notes[event.newIndex];
 

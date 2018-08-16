@@ -6,9 +6,11 @@ import { NoteListSingleComponent } from './note-list-single/note-list-single.com
 import { NoteListSettingsComponent } from './note-list-settings/note-list-settings.component';
 import { NoteIndexComponent } from './note-index/note-index.component';
 import { MaterialModule } from '../material/material.module';
+import { DraggingModule } from '../dragging/dragging.module';
 
 @NgModule({
     imports: [
+        DraggingModule,
         MaterialModule,
         CommonModule,
         FormsModule,

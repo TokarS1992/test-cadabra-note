@@ -1,4 +1,4 @@
-import { AfterContentInit, ContentChildren, Directive, EventEmitter, Output, QueryList } from '@angular/core';
+import { AfterContentInit, ContentChildren, Directive, EventEmitter, Output, QueryList, HostBinding } from '@angular/core';
 import { SortableDirective } from './sortable.directive';
 
 export interface SortEvent {
@@ -25,30 +25,32 @@ const vCenter = (rect: ClientRect): number => {
   selector: '[appSortableList]'
 })
 export class SortableListDirective implements AfterContentInit {
-    @ContentChildren(SortableDirective) sortables: QueryList<SortableDirective>;
+    @ContentChildren(SortableDirective) sortableListDirectives: QueryList<SortableDirective>;
 
-    @Output() sort = new EventEmitter<SortEvent>();
+    @Output() sortEmitter = new EventEmitter<SortEvent>();
 
     private clientRects: ClientRect[];
 
     ngAfterContentInit(): void {
-        this.sortables.forEach(sortable => {
+        this.sortableListDirectives.forEach(sortable => {
             sortable.dragStart.subscribe(() => this.measureClientRects());
             sortable.dragMove.subscribe(event => this.detectSorting(sortable, event));
         });
     }
 
     private measureClientRects() {
-        this.clientRects = this.sortables.map(sortable => sortable.element.nativeElement.getBoundingClientRect());
+        this.clientRects = this.sortableListDirectives.map(sortable => sortable.element.nativeElement.getBoundingClientRect());
     }
 
     private detectSorting(sortable: SortableDirective, event: PointerEvent) {
-        const currentIndex = this.sortables.toArray().indexOf(sortable);
+        const currentIndex = this.sortableListDirectives.toArray().indexOf(sortable);
         const currentRect = this.clientRects[currentIndex];
 
         this.clientRects
             .slice()
-            .sort((rectA, rectB) => distance(rectA, currentRect) - distance(rectB, currentRect))
+            .sort((rectA, rectB) => {
+                return distance(rectA, currentRect) - distance(rectB, currentRect)
+            })
             .filter(rect => rect !== currentRect)
             .some(rect => {
                 const isHorizontal = rect.top === currentRect.top;
@@ -56,8 +58,6 @@ export class SortableListDirective implements AfterContentInit {
                     rect.left < currentRect.left :
                     rect.top < currentRect.top;
 
-                // refactored this part a little bit after my Youtube video
-                // for improving readability
                 const moveBack = isBefore && (isHorizontal ?
                         event.clientX < hCenter(rect) :
                         event.clientY < vCenter(rect)
@@ -69,7 +69,7 @@ export class SortableListDirective implements AfterContentInit {
                 );
 
                 if (moveBack || moveForward) {
-                    this.sort.emit({
+                    this.sortEmitter.emit({
                         currentIndex: currentIndex,
                         newIndex: this.clientRects.indexOf(rect)
                     });

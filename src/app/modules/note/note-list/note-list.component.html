@@ -1,6 +1,6 @@
-<div class="list-notes h-100">
-    <div class="list-notes__item pointer" *ngFor="let item of notes" (click)="selectItem(item)" [class.archived]="item.archived" appSortable>
-        <div class="list-notes__item__drag">
+<div class="list-notes h-100" appSortableList (sortEmitter)="sort($event)" *ngIf="notes.length > 0">
+    <div class="list-notes__item pointer" *ngFor="let item of notes" (click)="selectItem(item)" [class.archived]="item.archived" appSortable #listItem>
+        <div class="drag-elem">
             <h3 class="list-notes__item__title">{{item.title ? item.title : defaultTitle}}</h3>
             <div class="list-notes__item__content d-flex justify-content-between align-items-center">
                 <div class="list-notes__item__content__text">{{item.text ? item.text : defaultContent}}</div>
@@ -8,7 +8,7 @@
             </div>
         </div>
 
-        <div class="list-notes__item__drag" *appDragHelper>
+        <div class="drag-elem" *appDragHelper>
             <h3 class="list-notes__item__title">{{item.title ? item.title : defaultTitle}}</h3>
             <div class="list-notes__item__content d-flex justify-content-between align-items-center">
                 <div class="list-notes__item__content__text">{{item.text ? item.text : defaultContent}}</div>
@@ -16,6 +16,6 @@
             </div>
         </div>
     </div>
-
-    <div *ngIf="notes.length === 0">None notes</div>
 </div>
+
+<div *ngIf="notes.length === 0" class="none-elements">None notes</div>
